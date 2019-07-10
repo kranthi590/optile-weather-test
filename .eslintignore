@@ -1,0 +1,5 @@
+**/node_modules
+*.scss
+index.js
+package.json
+*.min.js
