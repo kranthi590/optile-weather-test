@@ -8,7 +8,7 @@ import reducers from '../reducers';
 
 const middleWares = [mainAppMiddleWares];
 
-if (process.env.NODE_ENV === 'dev') {
+if (process.env.NODE_ENV === 'development') {
   middleWares.push(createLogger());
 }
 
