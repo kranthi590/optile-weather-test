@@ -1,0 +1,19 @@
+{
+  "2019-07-11": {
+    "displayDate": "July 11th 2019",
+    "weatherByHours": [
+      {
+        "hour": "06:00 PM",
+        "tempInCelsius": "13.41",
+        "tempInKelvin": 286.56,
+        "tempInFr": "56.00"
+      },
+      {
+        "hour": "09:00 PM",
+        "tempInCelsius": "13.40",
+        "tempInKelvin": 286.55,
+        "tempInFr": "56.00"
+      }
+    ]
+  }
+}

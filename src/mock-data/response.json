@@ -1,0 +1,88 @@
+{
+  "cod": "200",
+  "message": 0.0105,
+  "cnt": 40,
+  "list": [
+    {
+      "dt": 1562868000,
+      "main": {
+        "temp": 286.56,
+        "temp_min": 285.487,
+        "temp_max": 286.56,
+        "pressure": 1015.93,
+        "sea_level": 1015.93,
+        "grnd_level": 960.64,
+        "humidity": 96,
+        "temp_kf": 1.07
+      },
+      "weather": [
+        {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10d"
+        }
+      ],
+      "clouds": {
+        "all": 100
+      },
+      "wind": {
+        "speed": 2.92,
+        "deg": 219.227
+      },
+      "sys": {
+        "pod": "d"
+      },
+      "dt_txt": "2019-07-11 18:00:00",
+      "rain": {
+        "3h": 2.625
+      }
+    },
+    {
+      "dt": 1562878800,
+      "main": {
+        "temp": 286.55,
+        "temp_min": 285.741,
+        "temp_max": 286.55,
+        "pressure": 1016.59,
+        "sea_level": 1016.59,
+        "grnd_level": 961.14,
+        "humidity": 95,
+        "temp_kf": 0.8
+      },
+      "weather": [
+        {
+          "id": 500,
+          "main": "Rain",
+          "description": "light rain",
+          "icon": "10n"
+        }
+      ],
+      "clouds": {
+        "all": 100
+      },
+      "wind": {
+        "speed": 2.57,
+        "deg": 220.037
+      },
+      "sys": {
+        "pod": "n"
+      },
+      "dt_txt": "2019-07-11 21:00:00",
+      "rain": {
+        "3h": 0.625
+      }
+    }
+  ],
+  "city": {
+    "id": 2867714,
+    "name": "Munich",
+    "coord": {
+      "lat": 48.1371,
+      "lon": 11.5754
+    },
+    "country": "DE",
+    "population": 1260391,
+    "timezone": 7200
+  }
+}

@@ -1,5 +1,6 @@
 import { Actions, raiseAction } from '../actions';
 import { getWeather } from '../services';
+import {transformWeatherData} from '../utils';
 
 export default store => next => action => {
   next(action);
@@ -16,7 +17,8 @@ export const saveWeatherData = async (store) => {
     store.dispatch(raiseAction(Actions.FETCH_WEATHER_DATA_FAILURE, err));
   });
   if (response && response.cod === '200') {
-    store.dispatch(raiseAction(Actions.FETCH_WEATHER_DATA_SUCCESS, response));
+    const weatherData = transformWeatherData(response);
+    store.dispatch(raiseAction(Actions.FETCH_WEATHER_DATA_SUCCESS, weatherData));
   }
 
 };
