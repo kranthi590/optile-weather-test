@@ -33,7 +33,7 @@ export class Container extends React.Component {
 
     let renderComponent;
     if (isLoading) {
-      renderComponent = <CircularProgress/>;
+      renderComponent = <CircularProgress className={classes.loader}/>;
     } else {
       renderComponent = <Weather classes={classes}/>;
     }
