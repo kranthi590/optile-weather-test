@@ -1,4 +1,5 @@
 import moment from 'moment';
+import { TEMP_TYPES } from '../constants';
 
 export const isMobile = (size) => size < 767;
 //  export const isTablet = (size) => size > 767 && size < 1024;
@@ -29,10 +30,20 @@ export const transformWeatherData = (response) => {
     }
     weatherData[date].weatherByHours.push({
       hour: parsedDate.format(TIME_DISPLAY_FORMAT),
-      tempInCelsius: convertKelvinToCelsius(weatherDataByDate.main.temp),
-      tempInKelvin: weatherDataByDate.main.temp,
-      tempInFr: convertKelvinToFahrenheit(weatherDataByDate.main.temp)
+      [TEMP_TYPES.CELCIUS]: convertKelvinToCelsius(weatherDataByDate.main.temp),
+      [TEMP_TYPES.KELVIN]: weatherDataByDate.main.temp,
+      [TEMP_TYPES.FAHRENHEIT]: convertKelvinToFahrenheit(weatherDataByDate.main.temp)
     });
+  });
+
+  Object.keys(weatherData).forEach((key) => {
+    let celciusSum = 0, fahrenheitSum = 0;
+    weatherData[key].weatherByHours.forEach((hourTemp) => {
+      celciusSum += hourTemp[TEMP_TYPES.CELCIUS];
+      fahrenheitSum += hourTemp[TEMP_TYPES.FAHRENHEIT];
+    });
+    weatherData[key][TEMP_TYPES.CELCIUS] = ((celciusSum) / weatherData[key].weatherByHours.length).toFixed(2);
+    weatherData[key][TEMP_TYPES.FAHRENHEIT] = ((fahrenheitSum) / weatherData[key].weatherByHours.length).toFixed(2);
   });
 
   return weatherData;
@@ -42,7 +53,7 @@ export const convertKelvinToCelsius = (kelvin) => {
   if (kelvin < 0) {
     throw new Error('below absolute zero (0 K)');
   } else {
-    return (kelvin - 273.15).toFixed(2);
+    return parseFloat((kelvin - 273.15).toFixed(2));
   }
 };
 
@@ -50,6 +61,6 @@ export const convertKelvinToFahrenheit = (kelvin) => {
   if (kelvin < 0) {
     throw new Error('below absolute zero (0 K)');
   } else {
-    return Math.floor(convertKelvinToCelsius(kelvin) * (9 / 5) + 32).toFixed(2);
+    return parseFloat(Math.floor(convertKelvinToCelsius(kelvin) * (9 / 5) + 32).toFixed(2));
   }
 };

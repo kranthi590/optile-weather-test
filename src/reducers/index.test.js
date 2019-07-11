@@ -29,24 +29,24 @@ describe('Test Suite for reducers', () => {
     expect(reducers.isLoading(state, action)).toEqual(false);
   });
 
-  it('Should return weatherData as `[]` when action is COMPONENT_INIT', () => {
-    expect(reducers.weatherData(state, action).length).toEqual(0);
+  it('Should return weatherData as `{}` when action is COMPONENT_INIT', () => {
+    expect(reducers.weatherData(state, action)).toEqual({});
   });
 
   it('Should return weatherData with records when action is FETCH_WEATHER_DATA', () => {
     action = {
       type: Actions.FETCH_WEATHER_DATA_SUCCESS,
-      payload: ['some_data']
+      payload: { data: 'now' }
     };
-    expect(reducers.weatherData(state, action)).toEqual(['some_data']);
+    expect(reducers.weatherData(state, action)).toEqual({ data: 'now' });
   });
 
-  it('Should return same previous state for weatherData as `[]` and isLoading as false when unexpected action is raised', () => {
+  it('Should return same previous state for weatherData as `{}` and isLoading as false when unexpected action is raised', () => {
     action = {
       type: 'HAHA_ACTION'
     };
-    state = ['some_data'];
-    expect(reducers.weatherData(state, action)).toEqual(['some_data']);
+    state = { data: 'now' };
+    expect(reducers.weatherData(state, action)).toEqual({ data: 'now' });
 
     state = true;
     expect(reducers.isLoading(state, action)).toEqual(true);

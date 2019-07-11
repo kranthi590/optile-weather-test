@@ -20,6 +20,7 @@ import { WbSunny as WbSunnyIcon } from '@material-ui/icons';
 import { raiseAction, Actions } from '../actions';
 import styles from './styles';
 import Weather from './components/weather';
+import ErrorComponent from './components/error-component';
 
 export class Container extends React.Component {
 
@@ -28,15 +29,34 @@ export class Container extends React.Component {
     actions.raiseAction(Actions.COMPONENT_INIT);
   }
 
+  onTempRadioButtonClick = (event) => {
+    const { actions } = this.props;
+    actions.raiseAction(Actions.CHANGE_TEMP_TYPE, event.target.value);
+  };
+
+  onRefreshClick = () => {
+    const { actions } = this.props;
+    actions.raiseAction(Actions.COMPONENT_INIT);
+  };
+
   render() {
 
-    const { isLoading, classes } = this.props;
+    const { isLoading, classes, weatherData, currentTempType, currentIndex } = this.props;
 
     let renderComponent;
     if (isLoading) {
-      renderComponent = <CircularProgress className={classes.loader}/>;
+      renderComponent = <div className={classes.loader}><CircularProgress/></div>;
+    } else if (Object.keys(weatherData).length === 0) {
+      renderComponent = <ErrorComponent classes={classes} onRefreshClick={this.onRefreshClick}/>;
     } else {
-      renderComponent = <Weather classes={classes}/>;
+      const weatherProps = {
+        classes,
+        currentTempType,
+        currentIndex,
+        weatherData,
+        onTempRadioButtonClick: this.onTempRadioButtonClick
+      };
+      renderComponent = <Weather {...weatherProps}/>;
     }
 
     return (
@@ -51,11 +71,9 @@ export class Container extends React.Component {
           </Toolbar>
         </AppBar>
         <main>
-          <div className={classes.heroContent}>
-            <ThemeContainer maxWidth="sm">
-              {renderComponent}
-            </ThemeContainer>
-          </div>
+          <ThemeContainer maxWidth="lg">
+            {renderComponent}
+          </ThemeContainer>
         </main>
       </React.Fragment>
     );
@@ -64,11 +82,16 @@ export class Container extends React.Component {
 }
 
 Container.propTypes = {
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  weatherData: PropTypes.array.isRequired,
+  currentTempType: PropTypes.string.isRequired,
+  currentIndex: PropTypes.number.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  isLoading: state.isLoading
+  isLoading: state.isLoading,
+  weatherData: state.weatherData,
+  currentTempType: state.currentTempType
 });
 
 const mapDispatchToProps = dispatch => ({

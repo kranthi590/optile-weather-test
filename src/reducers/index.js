@@ -1,4 +1,5 @@
 import { Actions } from '../actions';
+import { TEMP_TYPES } from '../constants';
 
 const isLoading = (state = false, action) => {
   switch (action.type) {
@@ -14,12 +15,35 @@ const isLoading = (state = false, action) => {
   }
 };
 
-const weatherData = (state = [], action) => {
+const weatherData = (state = {}, action) => {
   switch (action.type) {
     case Actions.COMPONENT_INIT:
     case Actions.FETCH_WEATHER_DATA_FAILURE:
-      return [];
+      return {};
     case Actions.FETCH_WEATHER_DATA_SUCCESS:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const currentTempType = (state = TEMP_TYPES.CELCIUS, action) => {
+  switch (action.type) {
+    case Actions.COMPONENT_INIT:
+    case Actions.FETCH_WEATHER_DATA_FAILURE:
+      return TEMP_TYPES.CELCIUS;
+    case Actions.CHANGE_TEMP_TYPE:
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
+const currentIndex = (state = 1, action) => {
+  switch (action.type) {
+    case Actions.COMPONENT_INIT:
+      return 1;
+    case Actions.SET_CURRENT_INDEX:
       return action.payload;
     default:
       return state;
@@ -28,5 +52,7 @@ const weatherData = (state = [], action) => {
 
 export default {
   isLoading,
-  weatherData
+  weatherData,
+  currentTempType,
+  currentIndex
 };
