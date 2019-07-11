@@ -6,8 +6,10 @@ export default (theme => ({
   icon: {
     marginRight: theme.spacing(2)
   },
+  heroContent: {
+    marginTop: isMobile(deviceWidth) ? '50%' : '10%'
+  },
   loader: {
-    marginLeft: '40%',
-    marginTop: isMobile(deviceWidth) ? '50%' : '30%'
+    marginLeft: '40%'
   }
 }));
