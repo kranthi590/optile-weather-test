@@ -8,7 +8,6 @@ export const isMobile = (size) => size < 767;
 const DATE_TIME_FORMAT = 'YYYY-MM-DD HH:mm:ss';
 const DATE_DISPLAY_FORMAT = 'MMMM Do YYYY';
 const DATE_FORMAT = 'YYYY-MM-DD';
-const TIME_FORMAT = 'HH:mm:ss';
 const TIME_DISPLAY_FORMAT = 'hh:mm A';
 
 export const transformWeatherData = (response) => {

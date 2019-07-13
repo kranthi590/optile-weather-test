@@ -21,14 +21,7 @@ const weatherData = (state = [], action) => {
     case Actions.FETCH_WEATHER_DATA_FAILURE:
       return [];
     case Actions.FETCH_WEATHER_DATA_SUCCESS:
-      action.payload[0].isSelected = true;
       return action.payload;
-    case Actions.SET_SELECTED_CARD:
-      const copy = [...state];
-      copy.forEach((object) => {
-        object.isSelected = (action.payload === object.date);
-      });
-      return copy;
     default:
       return state;
   }
@@ -57,9 +50,23 @@ const currentIndex = (state = 0, action) => {
   }
 };
 
+const selectedCard = (state = {}, action) => {
+  switch (action.type) {
+    case Actions.COMPONENT_INIT:
+      return {};
+    case Actions.SET_SELECTED_CARD:
+      return action.payload;
+    case Actions.FETCH_WEATHER_DATA_SUCCESS:
+      return action.payload[0];
+    default:
+      return state;
+  }
+};
+
 export default {
   isLoading,
   weatherData,
   currentTempType,
-  currentIndex
+  currentIndex,
+  selectedCard
 };

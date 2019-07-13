@@ -8,19 +8,19 @@ import { connect } from 'react-redux';
 import {
   withStyles,
   Container as ThemeContainer,
-  AppBar,
-  Toolbar,
-  Typography,
-  CssBaseline,
   CircularProgress
 } from '@material-ui/core';
-import { WbSunny as WbSunnyIcon } from '@material-ui/icons';
 
 // Internals
 import { raiseAction, Actions } from '../actions';
 import styles from './styles';
-import Weather from './components/weather';
-import ErrorComponent from './components/error-component';
+import {
+  Chart,
+  ErrorComponent,
+  PaginationController,
+  TemperatureTypeController,
+  WeatherCards
+} from './components';
 
 export class Container extends React.Component {
 
@@ -29,9 +29,9 @@ export class Container extends React.Component {
     actions.raiseAction(Actions.COMPONENT_INIT);
   }
 
-  onWeatherCardSelect = (date) => {
+  onWeatherCardSelect = (data) => {
     const { actions } = this.props;
-    actions.raiseAction(Actions.SET_SELECTED_CARD, date);
+    actions.raiseAction(Actions.SET_SELECTED_CARD, data);
   };
 
   onTempRadioButtonClick = (event) => {
@@ -52,46 +52,46 @@ export class Container extends React.Component {
 
   render() {
 
-    const { isLoading, classes, weatherData, currentTempType, currentIndex } = this.props;
+    const { isLoading, classes, weatherData, currentTempType, currentIndex, selectedCard } = this.props;
 
-    let renderComponent;
     if (isLoading) {
-      renderComponent = <div className={classes.loader}><CircularProgress/></div>;
-    } else if (!weatherData || weatherData.size === 0) {
-      renderComponent = <ErrorComponent classes={classes} onRefreshClick={this.onRefreshClick}/>;
-    } else {
-      const weatherCardsData = weatherData.slice(currentIndex, currentIndex + 3);
-      const weatherProps = {
-        classes,
-        currentTempType,
-        currentIndex,
-        weatherData: weatherCardsData,
-        onTempRadioButtonClick: this.onTempRadioButtonClick,
-        onWeatherCardSelect: this.onWeatherCardSelect,
-        onPaginationButtonClick: this.onPaginationButtonClick,
-        hidePreviousButton: currentIndex === 0,
-        hideNextButton: weatherCardsData.length < 3
-      };
-      renderComponent = <Weather {...weatherProps}/>;
+      return (<div className={classes.loader}><CircularProgress/></div>);
     }
-
+    if (!weatherData || weatherData.size === 0) {
+      return (<ErrorComponent classes={classes} onRefreshClick={this.onRefreshClick}/>);
+    }
+    const weatherCardsData = weatherData.slice(currentIndex, currentIndex + 3);
+    const chartProps = {
+      currentTempType,
+      selectedCard,
+      classes
+    };
+    const paginationControllerProps = {
+      hideNextButton: weatherCardsData.length < 3,
+      classes,
+      onPaginationButtonClick: this.onPaginationButtonClick,
+      hidePreviousButton: currentIndex === 0
+    };
+    const tempControllerProps = {
+      currentTempType,
+      onTempRadioButtonClick: this.onTempRadioButtonClick
+    };
+    const weatherCardsProps = {
+      selectedCard,
+      classes,
+      weatherData: weatherCardsData,
+      currentTempType,
+      onWeatherCardSelect: this.onWeatherCardSelect
+    };
     return (
-      <React.Fragment>
-        <CssBaseline/>
-        <AppBar position="relative" color="primary">
-          <Toolbar color="primary" variant="dense">
-            <WbSunnyIcon className={classes.icon}/>
-            <Typography variant="h6" color="inherit" noWrap>
-              Weather Now
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <main>
-          <ThemeContainer maxWidth="lg">
-            {renderComponent}
-          </ThemeContainer>
-        </main>
-      </React.Fragment>
+      <div className={classes.content}>
+        <ThemeContainer component="main" maxWidth="md">
+          <TemperatureTypeController {...tempControllerProps}/>
+          <PaginationController {...paginationControllerProps}/>
+          <WeatherCards {...weatherCardsProps}/>
+          <Chart {...chartProps}/>
+        </ThemeContainer>
+      </div>
     );
 
   }
@@ -107,7 +107,8 @@ const mapStateToProps = (state, ownProps) => ({
   isLoading: state.isLoading,
   weatherData: state.weatherData,
   currentTempType: state.currentTempType,
-  currentIndex: state.currentIndex
+  currentIndex: state.currentIndex,
+  selectedCard: state.selectedCard
 });
 
 const mapDispatchToProps = dispatch => ({
