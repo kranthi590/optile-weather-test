@@ -1,6 +1,5 @@
 // Externals
 import React from 'react';
-import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -21,6 +20,7 @@ import {
   TemperatureTypeController,
   WeatherCards
 } from './components';
+import { DISPLAY_CARDS } from '../constants';
 
 export class Container extends React.Component {
 
@@ -57,17 +57,19 @@ export class Container extends React.Component {
     if (isLoading) {
       return (<div className={classes.loader}><CircularProgress/></div>);
     }
+
     if (!weatherData || weatherData.size === 0) {
       return (<ErrorComponent classes={classes} onRefreshClick={this.onRefreshClick}/>);
     }
-    const weatherCardsData = weatherData.slice(currentIndex, currentIndex + 3);
+
+    const weatherCardsData = weatherData.slice(currentIndex, currentIndex + DISPLAY_CARDS);
     const chartProps = {
       currentTempType,
       selectedCard,
       classes
     };
     const paginationControllerProps = {
-      hideNextButton: weatherCardsData.length < 3,
+      hideNextButton: weatherCardsData.length < DISPLAY_CARDS,
       classes,
       onPaginationButtonClick: this.onPaginationButtonClick,
       hidePreviousButton: currentIndex === 0
@@ -97,13 +99,7 @@ export class Container extends React.Component {
   }
 }
 
-Container.propTypes = {
-  isLoading: PropTypes.bool.isRequired,
-  currentTempType: PropTypes.string.isRequired,
-  currentIndex: PropTypes.number.isRequired
-};
-
-const mapStateToProps = (state, ownProps) => ({
+const mapStateToProps = (state) => ({
   isLoading: state.isLoading,
   weatherData: state.weatherData,
   currentTempType: state.currentTempType,

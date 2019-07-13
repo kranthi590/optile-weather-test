@@ -6,8 +6,8 @@ export default (props) => {
   const { hideNextButton, classes } = props;
   const { onPaginationButtonClick, hidePreviousButton } = props;
   return (
-    <Grid container spacing={3}>
-      <Grid item sm={1} xs={6}>
+    <Grid container spacing={2}>
+      <Grid item xs={2} justify="flex-start" className={classes.pullLeft}>
         <Button
           className={classes.button}
           color="primary"
@@ -18,9 +18,8 @@ export default (props) => {
           <ArrowBack fontSize="large"/>
         </Button>
       </Grid>
-      <Grid item sm={5} xs={6}/>
-      <Grid item sm={5} xs={6}/>
-      <Grid item sm={1} xs={6}>
+      <Grid item xs={8}/>
+      <Grid item xs={2} className={classes.pullRight}>
         <Button
           className={classes.button}
           color="primary"

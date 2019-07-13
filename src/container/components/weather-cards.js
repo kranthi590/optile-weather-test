@@ -6,7 +6,7 @@ export default (props) => {
   const { selectedCard, classes, weatherData, currentTempType } = props;
   const { onWeatherCardSelect } = props;
   return (
-    <Grid alignItems="flex-end" container spacing={5}>
+    <Grid alignItems="flex-end" container spacing={2}>
       {
         weatherData.map((value, index) => {
           const weatherCardProps = {
@@ -18,7 +18,7 @@ export default (props) => {
             index
           };
           return (
-            <WeatherCard {...weatherCardProps}/>
+            <WeatherCard {...weatherCardProps} key={index}/>
           );
         })
       }
@@ -40,7 +40,7 @@ export const WeatherCard = (props) => {
     value.date === selectedCard.date ? classes.selectedCard : undefined
   );
   return (
-    <Grid item key={index} md={4} sm={6} xs={12}>
+    <Grid item key={index} xs={4}>
       <Card
         className={cardClasses}
         onClick={() => {

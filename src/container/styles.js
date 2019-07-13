@@ -32,5 +32,19 @@ export default theme => ({
     justifyContent: 'center',
     alignItems: 'baseline',
     marginBottom: theme.spacing(2)
+  },
+  button: {
+    padding: theme.spacing(1),
+    textAlign: 'center'
+  },
+  pullRight: {
+    display: 'inline-block',
+    textAlign: 'right',
+    width: '100%'
+  },
+  pullLeft: {
+    display: 'inline-block',
+    textAlign: 'left',
+    width: '100%'
   }
 });
