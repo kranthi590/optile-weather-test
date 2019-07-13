@@ -9,7 +9,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <Provider store={store}>
-        <WeatherContainer/>
+        <WeatherContainer />
       </Provider>
     );
   }
