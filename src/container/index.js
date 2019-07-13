@@ -34,9 +34,9 @@ export class Container extends React.Component {
     actions.raiseAction(Actions.SET_SELECTED_CARD, data);
   };
 
-  onTempRadioButtonClick = (event) => {
+  onTempRadioButtonClick = (tempType) => {
     const { actions } = this.props;
-    actions.raiseAction(Actions.CHANGE_TEMP_TYPE, event.target.value);
+    actions.raiseAction(Actions.CHANGE_TEMP_TYPE, tempType);
   };
 
   onRefreshClick = () => {

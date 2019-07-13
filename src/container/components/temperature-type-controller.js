@@ -14,8 +14,9 @@ export default (props) => {
           control={<Radio color="primary"/>}
           label="Celsius"
           labelPlacement="end"
-          onClick={onTempRadioButtonClick}
-          value={TEMP_TYPES.CELCIUS}
+          onClick={() => {
+            onTempRadioButtonClick(TEMP_TYPES.CELCIUS);
+          }}
         />
       </Grid>
       <Grid item xs={2}/>
@@ -25,8 +26,9 @@ export default (props) => {
           control={<Radio color="primary"/>}
           label="Fahrenheit"
           labelPlacement="end"
-          onClick={onTempRadioButtonClick}
-          value={TEMP_TYPES.FAHRENHEIT}
+          onClick={() => {
+            onTempRadioButtonClick(TEMP_TYPES.FAHRENHEIT);
+          }}
         />
       </Grid>
 
