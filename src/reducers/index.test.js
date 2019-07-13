@@ -3,7 +3,6 @@ import reducers from './index';
 import { Actions } from '../actions';
 
 describe('Test Suite for reducers', () => {
-
   let state, action;
 
   beforeEach(() => {
@@ -51,7 +50,4 @@ describe('Test Suite for reducers', () => {
     state = true;
     expect(reducers.isLoading(state, action)).toEqual(true);
   });
-
 });
-
-

@@ -15,44 +15,25 @@ import {
   Radio,
   RadioGroup
 } from '@material-ui/core';
+import { ArrowForward, ArrowBack } from '@material-ui/icons';
 import { TEMP_TYPES } from '../../constants';
+import Chart from 'react-apexcharts';
 
-const tiers = [
-  {
-    title: 'Pro',
-    price: '15',
-    description: [
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support'
-    ],
-    buttonText: 'Get started',
-    buttonVariant: 'outlined'
+
+const state = {
+  options: {
+    chart: {
+      id: 'apexchart-example'
+    },
+    xaxis: {
+      categories: [16, 17, 18, 19, 20, 21, 22, 23]
+    }
   },
-  {
-    title: 'Free',
-    price: '0',
-    description: ['10 users included', '2 GB of storage', 'Help center access', 'Email support'],
-    buttonText: 'Sign up for free',
-    buttonVariant: 'outlined'
-  },
-
-  {
-    title: 'Enterprise',
-    price: '30',
-    description: [
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support'
-    ],
-    buttonText: 'Contact us',
-    buttonVariant: 'outlined'
-  }
-];
-
-const cardsSize = 3;
+  series: [{
+    name: 'series-1',
+    data: [30, 40, 45, 20, 49, 60, 70, 91]
+  }]
+};
 
 export default (props) => {
 
@@ -61,33 +42,41 @@ export default (props) => {
     currentTempType,
     onTempRadioButtonClick,
     currentIndex,
-    weatherData
+    weatherData,
+    onWeatherCardSelect,
+    onPaginationButtonClick,
+    hidePreviousButton,
+    hideNextButton
   } = props;
 
-  const cards = [];
+  let selectedCard = null;
 
-  for (let dateKey in weatherData) {
+  const cards = [];
+  weatherData.forEach((value, index) => {
+    if (value.isSelected) {
+      selectedCard = value;
+    }
     cards.push(
-      <Grid item key={dateKey} xs={12} sm={6} md={4}>
-        <Card>
-          <CardContent>
-            <div className={classes.cardPricing}>
-              <Typography component="h2" variant="h3" color="textPrimary">
-              </Typography>
-              <Typography variant="h6" color="textSecondary">
-                Temp: {weatherData[dateKey][currentTempType]}
-              </Typography>
-            </div>
+      <Grid item key={index} xs={12} sm={6} md={4}>
+        <Card className={value.isSelected ? classes.selectedCard : undefined}>
+          <CardContent onClick={() => {
+            onWeatherCardSelect(value.date);
+          }}>
             <ul>
               <li>
-                Date: {weatherData[dateKey].displayDate}
+                <Typography variant="h6">
+                  Temp: {value[currentTempType]}
+                </Typography>
+              </li>
+              <li>
+                Date: {value.displayDate}
               </li>
             </ul>
           </CardContent>
         </Card>
       </Grid>
     );
-  }
+  });
 
   return (
     <div className={classes.content}>
@@ -119,20 +108,28 @@ export default (props) => {
           </Grid>
         </Grid>
         <Grid container spacing={3}>
-          <Grid item xs={6} sm={2}>
-            <Paper className={classes.paper}>xs=6 sm=3</Paper>
+          <Grid item xs={6} sm={1}>
+            <Button variant="contained" color="primary" className={classes.button} value={'previous'}
+                    disabled={hidePreviousButton} onClick={onPaginationButtonClick}>
+              <ArrowBack fontSize="large"/>
+            </Button>
           </Grid>
-          <Grid item xs={6} sm={4}>
+          <Grid item xs={6} sm={5}>
           </Grid>
-          <Grid item xs={6} sm={4}>
+          <Grid item xs={6} sm={5}>
           </Grid>
-          <Grid item xs={6} sm={2}>
-            <Paper className={classes.paper}>xs=6 sm=3</Paper>
+          <Grid item xs={6} sm={1}>
+            <Button variant="contained" color="primary" className={classes.button} value={'next'}
+                    disabled={hideNextButton} onClick={onPaginationButtonClick}>
+              <ArrowForward fontSize="large"/>
+            </Button>
           </Grid>
         </Grid>
         <Grid container spacing={5} alignItems="flex-end">
           {cards}
         </Grid>
+        <Chart options={state.options} series={state.series} type="bar" width={500} height={320}/>
+        {selectedCard && selectedCard.displayDate}
       </Container>
     </div>
   );

@@ -6,7 +6,6 @@ import createStore from './store';
 const store = createStore();
 
 export default class Dashboard extends Component {
-
   render() {
     return (
       <Provider store={store}>
@@ -15,4 +14,3 @@ export default class Dashboard extends Component {
     );
   }
 }
-

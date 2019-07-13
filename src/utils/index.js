@@ -13,7 +13,7 @@ const TIME_DISPLAY_FORMAT = 'hh:mm A';
 
 export const transformWeatherData = (response) => {
 
-  const weatherData = {};
+  const weatherData = new Map();
 
   if (!response || !response.list) {
     return weatherData;
@@ -22,31 +22,31 @@ export const transformWeatherData = (response) => {
   response.list.forEach((weatherDataByDate) => {
     const parsedDate = moment(weatherDataByDate.dt_txt, DATE_TIME_FORMAT);
     const date = parsedDate.format(DATE_FORMAT);
-    if (!weatherData[date]) {
-      weatherData[date] = {
+    if (!weatherData.get(date)) {
+      weatherData.set(date, {
         displayDate: parsedDate.format(DATE_DISPLAY_FORMAT),
-        weatherByHours: []
-      };
+        weatherByHours: [],
+        date
+      });
     }
-    weatherData[date].weatherByHours.push({
+    weatherData.get(date).weatherByHours.push({
       hour: parsedDate.format(TIME_DISPLAY_FORMAT),
       [TEMP_TYPES.CELCIUS]: convertKelvinToCelsius(weatherDataByDate.main.temp),
       [TEMP_TYPES.KELVIN]: weatherDataByDate.main.temp,
       [TEMP_TYPES.FAHRENHEIT]: convertKelvinToFahrenheit(weatherDataByDate.main.temp)
     });
   });
-
-  Object.keys(weatherData).forEach((key) => {
+  weatherData.forEach((value, key, map) => {
     let celciusSum = 0, fahrenheitSum = 0;
-    weatherData[key].weatherByHours.forEach((hourTemp) => {
+    value.weatherByHours.forEach((hourTemp) => {
       celciusSum += hourTemp[TEMP_TYPES.CELCIUS];
       fahrenheitSum += hourTemp[TEMP_TYPES.FAHRENHEIT];
     });
-    weatherData[key][TEMP_TYPES.CELCIUS] = ((celciusSum) / weatherData[key].weatherByHours.length).toFixed(2);
-    weatherData[key][TEMP_TYPES.FAHRENHEIT] = ((fahrenheitSum) / weatherData[key].weatherByHours.length).toFixed(2);
+    value[TEMP_TYPES.CELCIUS] = ((celciusSum) / value.weatherByHours.length).toFixed(2);
+    value[TEMP_TYPES.FAHRENHEIT] = ((fahrenheitSum) / value.weatherByHours.length).toFixed(2);
+    map.set(key, value);
   });
-
-  return weatherData;
+  return Array.from(weatherData.values());
 };
 
 export const convertKelvinToCelsius = (kelvin) => {

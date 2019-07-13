@@ -29,6 +29,11 @@ export class Container extends React.Component {
     actions.raiseAction(Actions.COMPONENT_INIT);
   }
 
+  onWeatherCardSelect = (date) => {
+    const { actions } = this.props;
+    actions.raiseAction(Actions.SET_SELECTED_CARD, date);
+  };
+
   onTempRadioButtonClick = (event) => {
     const { actions } = this.props;
     actions.raiseAction(Actions.CHANGE_TEMP_TYPE, event.target.value);
@@ -39,6 +44,12 @@ export class Container extends React.Component {
     actions.raiseAction(Actions.COMPONENT_INIT);
   };
 
+  onPaginationButtonClick = (event) => {
+    const eventType = event.currentTarget.value;
+    const { actions, currentIndex } = this.props;
+    actions.raiseAction(Actions.SET_CURRENT_INDEX, eventType === 'previous' ? currentIndex - 1 : currentIndex + 1);
+  };
+
   render() {
 
     const { isLoading, classes, weatherData, currentTempType, currentIndex } = this.props;
@@ -46,15 +57,20 @@ export class Container extends React.Component {
     let renderComponent;
     if (isLoading) {
       renderComponent = <div className={classes.loader}><CircularProgress/></div>;
-    } else if (Object.keys(weatherData).length === 0) {
+    } else if (!weatherData || weatherData.size === 0) {
       renderComponent = <ErrorComponent classes={classes} onRefreshClick={this.onRefreshClick}/>;
     } else {
+      const weatherCardsData = weatherData.slice(currentIndex, currentIndex + 3);
       const weatherProps = {
         classes,
         currentTempType,
         currentIndex,
-        weatherData,
-        onTempRadioButtonClick: this.onTempRadioButtonClick
+        weatherData: weatherCardsData,
+        onTempRadioButtonClick: this.onTempRadioButtonClick,
+        onWeatherCardSelect: this.onWeatherCardSelect,
+        onPaginationButtonClick: this.onPaginationButtonClick,
+        hidePreviousButton: currentIndex === 0,
+        hideNextButton: weatherCardsData.length < 3
       };
       renderComponent = <Weather {...weatherProps}/>;
     }
@@ -83,7 +99,6 @@ export class Container extends React.Component {
 
 Container.propTypes = {
   isLoading: PropTypes.bool.isRequired,
-  weatherData: PropTypes.array.isRequired,
   currentTempType: PropTypes.string.isRequired,
   currentIndex: PropTypes.number.isRequired
 };
@@ -91,7 +106,8 @@ Container.propTypes = {
 const mapStateToProps = (state, ownProps) => ({
   isLoading: state.isLoading,
   weatherData: state.weatherData,
-  currentTempType: state.currentTempType
+  currentTempType: state.currentTempType,
+  currentIndex: state.currentIndex
 });
 
 const mapDispatchToProps = dispatch => ({

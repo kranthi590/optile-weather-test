@@ -15,13 +15,20 @@ const isLoading = (state = false, action) => {
   }
 };
 
-const weatherData = (state = {}, action) => {
+const weatherData = (state = [], action) => {
   switch (action.type) {
     case Actions.COMPONENT_INIT:
     case Actions.FETCH_WEATHER_DATA_FAILURE:
-      return {};
+      return [];
     case Actions.FETCH_WEATHER_DATA_SUCCESS:
+      action.payload[0].isSelected = true;
       return action.payload;
+    case Actions.SET_SELECTED_CARD:
+      const copy = [...state];
+      copy.forEach((object) => {
+        object.isSelected = (action.payload === object.date);
+      });
+      return copy;
     default:
       return state;
   }
@@ -39,10 +46,10 @@ const currentTempType = (state = TEMP_TYPES.CELCIUS, action) => {
   }
 };
 
-const currentIndex = (state = 1, action) => {
+const currentIndex = (state = 0, action) => {
   switch (action.type) {
     case Actions.COMPONENT_INIT:
-      return 1;
+      return 0;
     case Actions.SET_CURRENT_INDEX:
       return action.payload;
     default:

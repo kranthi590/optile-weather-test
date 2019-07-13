@@ -2,7 +2,7 @@ import { isMobile } from '../utils';
 
 const deviceWidth = window.screen.availWidth;
 
-export default (theme => ({
+export default theme => ({
   '@global': {
     body: {
       backgroundColor: theme.palette.common.white
@@ -43,10 +43,14 @@ export default (theme => ({
     marginRight: theme.spacing(2)
   },
   loader: {
-    marginTop: isMobile(deviceWidth) ? '30%' : '50%',
+    marginTop: isMobile(deviceWidth) ? '30%' : '20%',
     marginLeft: '40%'
   },
   content: {
-    marginTop: '5%'
+    marginTop: '2%'
+  },
+  selectedCard: {
+    borderStyle: 'solid',
+    borderColor: '#33a0fc'
   }
-}));
+});

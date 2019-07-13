@@ -7,25 +7,20 @@ import { CircularProgress } from '@material-ui/core';
 import { Container } from './index';
 
 describe('Test Suite for container', () => {
-
   let wrapper;
   const containerProps = {
     isLoading: true,
     actions: {
-      raiseAction: () => {
-      }
+      raiseAction: () => {}
     },
     classes: {}
   };
 
   beforeEach(() => {
-    wrapper = shallow(<Container {...containerProps}/>);
+    wrapper = shallow(<Container {...containerProps} />);
   });
 
   it('Should return loading DOM when isLoading is true', () => {
-    expect(wrapper.contains(<CircularProgress/>)).toEqual(true);
+    expect(wrapper.contains(<CircularProgress />)).toEqual(true);
   });
-
 });
-
-

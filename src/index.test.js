@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 
 describe('Test suite for Main App', () => {
-
   let store;
 
   beforeEach(() => {
@@ -17,11 +16,10 @@ describe('Test suite for Main App', () => {
     const div = document.createElement('div');
     ReactDOM.render(
       <Provider store={store}>
-        <App/>
-      </Provider>, div);
+        <App />
+      </Provider>,
+      div
+    );
     ReactDOM.unmountComponentAtNode(div);
   });
-
 });
-
-
