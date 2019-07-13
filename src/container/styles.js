@@ -2,7 +2,7 @@ import { isMobile } from '../utils';
 
 const deviceWidth = window.screen.availWidth;
 
-export default (theme) => ({
+export default theme => ({
   '@global': {
     ul: {
       margin: 0,

@@ -2,7 +2,13 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import WeatherContainer from './container';
 import createStore from './store';
-import { AppBar, Container as ThemeContainer, CssBaseline, Toolbar, Typography } from '@material-ui/core';
+import {
+  AppBar,
+  Container as ThemeContainer,
+  CssBaseline,
+  Toolbar,
+  Typography
+} from '@material-ui/core';
 import { WbSunny as WbSunnyIcon } from '@material-ui/icons';
 
 const store = createStore();
@@ -12,18 +18,28 @@ export default class Dashboard extends Component {
     return (
       <Provider store={store}>
         <React.Fragment>
-          <CssBaseline/>
-          <AppBar position="relative" color="primary">
-            <Toolbar color="primary" variant="dense">
-              <WbSunnyIcon/>
-              <Typography variant="h6" color="inherit" noWrap>
+          <CssBaseline />
+          <AppBar
+            color="primary"
+            position="relative"
+          >
+            <Toolbar
+              color="primary"
+              variant="dense"
+            >
+              <WbSunnyIcon />
+              <Typography
+                color="inherit"
+                noWrap
+                variant="h6"
+              >
                 Weather Now
               </Typography>
             </Toolbar>
           </AppBar>
           <main>
             <ThemeContainer maxWidth="lg">
-              <WeatherContainer/>
+              <WeatherContainer />
             </ThemeContainer>
           </main>
         </React.Fragment>
