@@ -1,7 +1,6 @@
 import { transformWeatherData, convertKelvinToCelsius, convertKelvinToFahrenheit } from './index';
 import mockJson from '../mock-data/response.json';
 import weatherDataJson from '../mock-data/weather-data.json';
-import { getWeather } from '../services';
 
 describe('Test Suite for utils', () => {
 

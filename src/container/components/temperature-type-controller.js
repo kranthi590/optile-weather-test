@@ -7,7 +7,7 @@ export default (props) => {
   const { onTempRadioButtonClick } = props;
   return (
     <Grid container>
-      <Grid item xs={3}/>
+      <Grid item xs={2}/>
       <Grid item xs={3}>
         <FormControlLabel
           checked={currentTempType === TEMP_TYPES.CELCIUS}

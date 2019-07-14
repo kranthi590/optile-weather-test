@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { TEMP_TYPES } from '../constants';
 
-export const isMobile = (size) => size < 767;
+export const isMobile = () => window.screen.availWidth < 767;
 //  export const isTablet = (size) => size > 767 && size < 1024;
 //  export const isDesktop = (size) => size > 1024;
 

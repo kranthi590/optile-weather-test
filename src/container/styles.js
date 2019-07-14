@@ -1,7 +1,5 @@
 import { isMobile } from '../utils';
 
-const deviceWidth = window.screen.availWidth;
-
 export default theme => ({
   '@global': {
     ul: {
@@ -13,7 +11,7 @@ export default theme => ({
     }
   },
   loader: {
-    marginTop: isMobile(deviceWidth) ? '30%' : '20%',
+    marginTop: isMobile() ? '30%' : '20%',
     marginLeft: '40%'
   },
   content: {

@@ -1,12 +1,14 @@
 import React from 'react';
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 import classNames from 'classnames';
+import { isMobile } from '../../utils';
 
 export default (props) => {
   const { selectedCard, classes, weatherData, currentTempType } = props;
   const { onWeatherCardSelect } = props;
+  console.log('isMobile()', isMobile());
   return (
-    <Grid alignItems="flex-end" container spacing={2}>
+    <Grid direction={isMobile() ? 'column' : 'row'} container spacing={2} alignContent="center">
       {
         weatherData.map((value, index) => {
           const weatherCardProps = {
@@ -40,7 +42,7 @@ export const WeatherCard = (props) => {
     value.date === selectedCard.date ? classes.selectedCard : undefined
   );
   return (
-    <Grid item key={index} xs={4}>
+    <Grid item key={index} xs={isMobile() ? 12 : 4}>
       <Card
         id={'weather-card-' + index}
         className={cardClasses}
