@@ -5,6 +5,7 @@ import configureMockStore from 'redux-mock-store';
 // Internals
 import { Actions, raiseAction } from '../actions';
 import middlewares, { saveWeatherData } from './index';
+import { API_URL } from '../constants';
 
 describe('Test Suite for middlewares', () => {
   let store;
@@ -20,9 +21,17 @@ describe('Test Suite for middlewares', () => {
   });
 
   it('Should raise action to reducer to store weather data', async () => {
-    await saveWeatherData(store);
+    await saveWeatherData(store, API_URL);
     expect(store.getActions()[0].type).toEqual(
       Actions.FETCH_WEATHER_DATA_SUCCESS
     );
   });
+
+  it('Should catch error', async () => {
+    await saveWeatherData(store);
+    expect(store.getActions()[0].type).toEqual(
+      Actions.FETCH_WEATHER_DATA_FAILURE
+    );
+  });
+
 });

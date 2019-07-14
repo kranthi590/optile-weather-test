@@ -17,6 +17,7 @@ export default (props) => {
           onClick={() => {
             onTempRadioButtonClick(TEMP_TYPES.CELCIUS);
           }}
+          id="celcius-radio"
         />
       </Grid>
       <Grid item xs={2}/>
@@ -29,6 +30,7 @@ export default (props) => {
           onClick={() => {
             onTempRadioButtonClick(TEMP_TYPES.FAHRENHEIT);
           }}
+          id="fr-radio"
         />
       </Grid>
 

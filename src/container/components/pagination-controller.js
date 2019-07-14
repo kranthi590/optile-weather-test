@@ -9,6 +9,7 @@ export default (props) => {
     <Grid container spacing={2}>
       <Grid item xs={2} justify="flex-start" className={classes.pullLeft}>
         <Button
+          id="pageButton"
           className={classes.button}
           color="primary"
           disabled={hidePreviousButton}

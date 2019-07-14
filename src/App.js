@@ -6,7 +6,7 @@ import { AppBar, Container as ThemeContainer, CssBaseline, Toolbar, Typography }
 import { WbSunny as WbSunnyIcon } from '@material-ui/icons';
 
 export default () => {
-  const store = createStore();
+  const store = createStore({}, process.env.NODE_ENV);
   return (
     <Provider store={store}>
       <React.Fragment>

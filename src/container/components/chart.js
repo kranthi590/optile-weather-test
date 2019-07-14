@@ -41,6 +41,7 @@ export default props => {
         options={state.options}
         series={state.series}
         type="bar"
+        id="weather-chart"
       />
       <Grid
         alignItems="flex-end"

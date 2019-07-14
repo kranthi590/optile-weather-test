@@ -42,6 +42,7 @@ export const WeatherCard = (props) => {
   return (
     <Grid item key={index} xs={4}>
       <Card
+        id={'weather-card-' + index}
         className={cardClasses}
         onClick={() => {
           onWeatherCardSelect(value);

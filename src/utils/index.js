@@ -12,11 +12,11 @@ const TIME_DISPLAY_FORMAT = 'hh:mm A';
 
 export const transformWeatherData = (response) => {
 
-  const weatherData = new Map();
-
   if (!response || !response.list) {
-    return weatherData;
+    return [];
   }
+
+  const weatherData = new Map();
 
   response.list.forEach((weatherDataByDate) => {
     const parsedDate = moment(weatherDataByDate.dt_txt, DATE_TIME_FORMAT);

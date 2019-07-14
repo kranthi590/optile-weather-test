@@ -24,7 +24,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "jest --config jest.config.js",
+    "test": "jest --config jest.config.js --silent",
     "test:watch": "jest --config jest.config.js --watch",
     "eject": "react-scripts eject",
     "format": "prettier-eslint --write 'src/**/*.js' 'src/*/!(node_modules)/**/*.js'"

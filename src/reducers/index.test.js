@@ -28,8 +28,8 @@ describe('Test Suite for reducers', () => {
     expect(reducers.isLoading(state, action)).toEqual(false);
   });
 
-  it('Should return weatherData as `{}` when action is COMPONENT_INIT', () => {
-    expect(reducers.weatherData(state, action)).toEqual({});
+  it('Should return weatherData as `[]` when action is COMPONENT_INIT', () => {
+    expect(reducers.weatherData(state, action)).toEqual([]);
   });
 
   it('Should return weatherData with records when action is FETCH_WEATHER_DATA', () => {
@@ -40,14 +40,22 @@ describe('Test Suite for reducers', () => {
     expect(reducers.weatherData(state, action)).toEqual({ data: 'now' });
   });
 
-  it('Should return same previous state for weatherData as `{}` and isLoading as false when unexpected action is raised', () => {
+  it('Should return same previous state for weatherData as `[]` and isLoading as false when unexpected action is raised', () => {
     action = {
       type: 'HAHA_ACTION'
     };
-    state = { data: 'now' };
-    expect(reducers.weatherData(state, action)).toEqual({ data: 'now' });
+    state = [{ data: 'now' }];
+    expect(reducers.weatherData(state, action)).toEqual([{ data: 'now' }]);
 
     state = true;
     expect(reducers.isLoading(state, action)).toEqual(true);
+  });
+
+  it('Should return current index with passed input', () => {
+    action = {
+      type: Actions.SET_CURRENT_INDEX,
+      payload: 1
+    };
+    expect(reducers.currentIndex(state, action)).toEqual(1);
   });
 });

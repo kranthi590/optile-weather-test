@@ -25,6 +25,7 @@ export default props => {
         color="primary"
         onClick={onRefreshClick}
         variant="outlined"
+        id="refresh"
       >
         Refresh
       </Button>

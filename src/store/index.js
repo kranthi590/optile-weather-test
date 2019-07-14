@@ -6,13 +6,12 @@ import { createLogger } from 'redux-logger';
 import mainAppMiddleWares from '../middlewares';
 import reducers from '../reducers';
 
-const middleWares = [mainAppMiddleWares];
+export const middleWares = [mainAppMiddleWares];
 
-if (process.env.NODE_ENV === 'development') {
-  middleWares.push(createLogger());
-}
-
-export default function configureStore(initialState) {
+export default function configureStore(initialState, env) {
+  if (env === 'development') {
+    middleWares.push(createLogger());
+  }
   return compose(applyMiddleware(...middleWares))(createStore)(
     combineReducers({ ...reducers, Intl }),
     initialState
