@@ -1,7 +1,13 @@
 {
-  "name": "react-starter-kit",
-  "version": "0.1.0",
+  "name": "optile-weather-test",
+  "version": "1.0.0",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kranthi590/optile-weather-test.git"
+  },
+  "author": "Kranthi Kumar Pasala",
+  "homepage": "http://kranthikumarpasala.com/",
   "dependencies": {
     "@material-ui/core": "^4.2.0",
     "@material-ui/icons": "^4.2.1",
