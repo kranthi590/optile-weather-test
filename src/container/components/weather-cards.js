@@ -6,7 +6,6 @@ import { isMobile } from '../../utils';
 export default (props) => {
   const { selectedCard, classes, weatherData, currentTempType } = props;
   const { onWeatherCardSelect } = props;
-  console.log('isMobile()', isMobile());
   return (
     <Grid direction={isMobile() ? 'column' : 'row'} container spacing={2} alignContent="center">
       {
