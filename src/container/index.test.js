@@ -58,7 +58,7 @@ describe('Test Suite for container', () => {
       mountedComponent.update();
       mountedComponent.find('#weather-card-' + 0).at(0).simulate('click');
       mountedComponent.find('#celcius-radio').at(0).simulate('click');
-      mountedComponent.find('#pageButton').at(0).find('button').simulate('click');
+      mountedComponent.find('#nextPageButton').at(0).find('button').simulate('click');
       expect(mockOnWeatherCardSelect).toHaveBeenCalled();
       expect(mockOnTempRadioButtonClick).toHaveBeenCalled();
       expect(mockOnPaginationButtonClick).toHaveBeenCalled();
