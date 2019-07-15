@@ -48,6 +48,9 @@
  - Clone the https://github.com/kranthi590/optile-weather-test
  - Change to the project directory and make a "**npm install**"
  
+  ## Run test cases
+    npm run test
+    
  ## Run the app in dev mode
     npm start
     
