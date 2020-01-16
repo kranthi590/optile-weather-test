@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
 import classNames from 'classnames';
 import { isMobile } from '../../utils';
+import { TEMP_TYPES } from '../../constants';
 
 export default (props) => {
   const { selectedCard, classes, weatherData, currentTempType } = props;
@@ -52,7 +53,7 @@ export const WeatherCard = (props) => {
           <ul>
             <li>
               <Typography variant="h6">
-                Temp: {value[currentTempType]}
+                Temp: {value[currentTempType]} {currentTempType === TEMP_TYPES.CELCIUS ? "° C" : "° F"}
               </Typography>
             </li>
             <li>Date: {value.displayDate}</li>
